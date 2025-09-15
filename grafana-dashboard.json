@@ -1,0 +1,47 @@
+{
+  "id": null,
+  "title": "Todolist Monitoring",
+  "tags": ["todolist", "demo"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "HTTP Requests (Total)",
+      "targets": [
+        {
+          "expr": "todolist_http_requests_total",
+          "legendFormat": "{{method}} {{route}} ({{status}})",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }
+    },
+    {
+      "type": "graph",
+      "title": "Request Duration (Histogram)",
+      "targets": [
+        {
+          "expr": "rate(todolist_http_request_duration_seconds_sum[1m]) / rate(todolist_http_request_duration_seconds_count[1m])",
+          "legendFormat": "avg duration (s)",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 }
+    },
+    {
+      "type": "stat",
+      "title": "Requests per Second",
+      "targets": [
+        {
+          "expr": "rate(todolist_http_requests_total[1m])",
+          "legendFormat": "RPS",
+          "refId": "C"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 8, "w": 6, "h": 4 }
+    }
+  ]
+}
